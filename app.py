@@ -19,11 +19,17 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# Create function with a route decorator
+# Create get_task() function with a route decorator
 @app.route("/")
 @app.route("/get_tasks")
 def get_tasks():
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
+
+
+# Create add_task() function with a route decorator
+@app.route("/add_task")
+def add_task():
+    return render_template("addtask.html")
 
 
 # Create IP & Port location to run app
