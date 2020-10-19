@@ -29,7 +29,25 @@
     <!-- Local JS Script Code -->
 	<script>
 		$(document).ready(function(){
-	    $('.collapsible').collapsible();
+	        $('.collapsible').collapsible()
+            $('.datepicker').datepicker(); 
+        });
+            
+        // DatePicker
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });
+
+        // Chrome DatePicker Compatibility fix
+        document.getElementById("matfix").addEventListener("click", function(e) {
+        e.stopPropagation();
+        });
+	
 	</script>
 
 </body>
