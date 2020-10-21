@@ -29,7 +29,8 @@ def get_tasks():
 # Create add_task() function with a route decorator
 @app.route("/add_task")
 def add_task():
-    return render_template("addtask.html")
+    return render_template("addtask.html",
+    categories=mongo.db.categories.find())
 
 
 # Create IP & Port location to run app
