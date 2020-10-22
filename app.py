@@ -30,7 +30,15 @@ def get_tasks():
 @app.route("/add_task")
 def add_task():
     return render_template("addtask.html",
-    categories=mongo.db.categories.find())
+                           categories=mongo.db.categories.find())
+
+
+# Create insert_task() function with a route decorator
+@app.route("/insert_task", methods=["POST"])
+def insert_task():
+    tasks = mongo.db.tasks
+    tasks.insert_one(request.form.to_dict())
+    return redirect(url_for("get_tasks"))
 
 
 # Create IP & Port location to run app
