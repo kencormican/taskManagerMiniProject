@@ -4,7 +4,7 @@
 <h3>Edit Task</h3>
 
 <div class="row">
-  <form action="{{ url_for('edit_task', task_id=task._id) }}" method="POST"  class="col s12">
+  <form action="{{ url_for('update_task', task_id=task._id) }}" method="POST" class="col s12">
 	<div class="row">
         <div class="input-field col s12">
         <i class="material-icons prefix">poll</i>
@@ -45,7 +45,7 @@
     </div>
 	<div class="row">
 		<div class="switch">
-            <label for="is_urgent">
+            <label>
                 {% if task.is_urgent == "on" %}
                     <input type="checkbox" id="is_urgent" name="is_urgent" checked>
                 {% else %}
