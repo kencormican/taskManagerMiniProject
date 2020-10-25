@@ -19,7 +19,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# Create get_task() function with a route decorator
+# Create get_task() function & route decorator to display tasks
 @app.route("/")
 @app.route("/get_tasks")
 def get_tasks():
@@ -71,6 +71,13 @@ def update_task(task_id):
 def delete_task(task_id):
     mongo.db.tasks.remove({'_id': ObjectId(task_id)})
     return redirect(url_for('get_tasks'))
+
+
+# Create get_categories() function to display the categories
+@app.route('/get_categories')
+def get_categories():
+    return render_template('categories.html',
+                           categories=mongo.db.categories.find())
 
 
 # Create IP & Port location to run app
