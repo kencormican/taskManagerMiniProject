@@ -66,6 +66,13 @@ def update_task(task_id):
     return redirect(url_for('get_tasks'))
 
 
+# Create delete_task() function with a route decorator
+@app.route('/delete_task/<task_id>')
+def delete_task(task_id):
+    mongo.db.tasks.remove({'_id': ObjectId(task_id)})
+    return redirect(url_for('get_tasks'))
+
+
 # Create IP & Port location to run app
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
