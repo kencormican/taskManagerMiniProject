@@ -80,6 +80,23 @@ def get_categories():
                            categories=mongo.db.categories.find())
 
 
+# Create edit_category() function to provide a view to edit a category
+@app.route('/edit_category/<category_id>')
+def edit_category(category_id):
+    return render_template('editcategory.html',
+                           category=mongo.db.categories.find_one(
+                           {'_id': ObjectId(category_id)}))
+
+
+# Create update_category() function to write changes to the database
+@app.route('/update_category/<category_id>', methods=['POST'])
+def update_category(category_id):
+    mongo.db.categories.update(
+        {'_id': ObjectId(category_id)},
+        {'category_name': request.form.get('category_name')})
+    return redirect(url_for('get_categories'))
+
+
 # Create IP & Port location to run app
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
