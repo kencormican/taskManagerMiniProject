@@ -85,7 +85,7 @@ def get_categories():
 def edit_category(category_id):
     return render_template('editcategory.html',
                            category=mongo.db.categories.find_one(
-                           {'_id': ObjectId(category_id)}))
+                               {'_id': ObjectId(category_id)}))
 
 
 # Create update_category() function to write changes to the database
@@ -102,6 +102,28 @@ def update_category(category_id):
 def delete_category(category_id):
     mongo.db.categories.remove({'_id': ObjectId(category_id)})
     return redirect(url_for('get_categories'))
+
+
+# Create add_category() function with a route decorator
+@app.route("/add_category")
+def add_category():
+    return render_template("addcategory.html")
+
+
+# Create insert_category() function with a route decorator
+@app.route("/insert_category", methods=["POST"])
+def insert_category():
+    categories = mongo.db.categories
+    category_doc = {'category_name': request.form.get('category_name')}
+    categories.insert_one(category_doc)
+    return redirect(url_for("get_categories"))
+
+# Alternate approach to insert_category
+# @app.route('/insert_category', methods=['POST'])
+# def insert_category():
+#     category_doc = {'category_name': request.form.get('category_name')}
+#     mongo.db.categories.insert_one(category_doc)
+#     return redirect(url_for('get_categories'))
 
 
 # Create IP & Port location to run app
